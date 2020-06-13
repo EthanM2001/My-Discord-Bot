@@ -17,11 +17,6 @@ client.on('ready', () => {
 })
 
 client.on('message', (message) => {
-    if (message.content === '!rip') {
-        const attachment = new MessageAttachment("https://i.imgur.com/w3duR07.png")
-        message.channel.send(`${message.author}`, attachment)
-        message.react('☠️')
-    }
     if (message.content.startsWith("!")) {
         processCommand(message)
     }
@@ -35,12 +30,28 @@ function processCommand(message) {
 
     if (primaryCommand == "help") {
         helpCommand(arguments, message)
+    } else if (primaryCommand == "multiply") {
+        multiplyCommand(arguments, message)
+    } else {
+        message.channel.send("Unknown command. Try `!help` or `!multiply`")
+    }
+}
+
+function multiplyCommand(arguments, message) {
+    if (arguments.length < 2) {
+        message.channel.send("Not enough arguments. Try `!multiply 2 10`")
+    } else {
+        let product = 1;
+        arguments.forEach((number) => {
+            product = product * parseFloat(number)
+        })
+        message.channel.send("The product of " + arguments + " is " + product)
     }
 }
 
 function helpCommand(arguments, message) {
     if (arguments.length === 0) {
-        message.channel.send("I'm unsure what you need help with. Try `!help [topic]")
+        message.channel.send("I'm unsure what you need help with. Try `!help [topic]`")
     } else {
         message.channel.send(`It looks like you need help with ${arguments}...`)
     }
