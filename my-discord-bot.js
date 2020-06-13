@@ -20,6 +20,7 @@ client.on('message', (message) => {
     if (message.content === '!rip') {
         const attachment = new MessageAttachment("https://i.imgur.com/w3duR07.png")
         message.channel.send(`${message.author}`, attachment)
+        message.react('☠️')
     }
 })
 
