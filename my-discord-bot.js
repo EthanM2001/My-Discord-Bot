@@ -22,6 +22,28 @@ client.on('message', (message) => {
         message.channel.send(`${message.author}`, attachment)
         message.react('☠️')
     }
+    if (message.content.startsWith("!")) {
+        processCommand(message)
+    }
 })
+
+function processCommand(message) {
+    let fullCommand = message.content.substr(1);
+    let splitCommand = fullCommand.split(" ");
+    let primaryCommand = splitCommand[0];
+    let arguments = splitCommand.slice(1);
+
+    if (primaryCommand == "help") {
+        helpCommand(arguments, message)
+    }
+}
+
+function helpCommand(arguments, message) {
+    if (arguments.length === 0) {
+        message.channel.send("I'm unsure what you need help with. Try `!help [topic]")
+    } else {
+        message.channel.send(`It looks like you need help with ${arguments}...`)
+    }
+}
 
 client.login(bot_token);
