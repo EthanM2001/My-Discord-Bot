@@ -32,8 +32,17 @@ function processCommand(message) {
         helpCommand(arguments, message)
     } else if (primaryCommand == "multiply") {
         multiplyCommand(arguments, message)
+    } else if (primaryCommand == "ping") {
+        pingCommand(message)
     } else {
         message.channel.send("Unknown command. Try `!help` or `!multiply`")
+    }
+}
+
+
+function pingCommand(message) {
+    if (message) {
+        message.channel.send('pong')
     }
 }
 
